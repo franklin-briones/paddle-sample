@@ -5,19 +5,6 @@ const bodyParser = require("body-parser");
 import {v4 as uuidv4} from 'uuid';
 import { MongoClient } from 'mongodb';
 
-// Parses urlencoded webhooks from paddle to JSON with keys sorted alphabetically ascending and values as strings
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Webhook request handling
-app.post("/", (req, res) => {
-  if (validateWebhook(req.body)) {
-    console.log('WEBHOOK_VERIFIED');
-    res.status(200).end();
-  } else {
-    res.sendStatus(403);
-    console.log('WEBHOOK_NOT_VERIFIED')
-  }
-})
 
 export default async (req, res) => {
 
@@ -58,12 +45,20 @@ export default async (req, res) => {
     }
 }
 
-
-app.listen( 8080, () => console.log( 'Node.js server started on port 8080.' ) );
-
 // Public key from your paddle dashboard
 const pubKey = `-----BEGIN PUBLIC KEY-----
-
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAmskuFtOptebXb/Dn0MAF
+WTvgbg4pA1P8QTF2aOAFIVfNcyi9itBp0Dtq6KT/6ft8Blub17u9YgkmWQRuanDu
+3OqzLfi1sLVZnhGXZ22Mbfava3eCsBnknEKKz5Qq7f45BFiP5NTwj4BuLGmITTFf
+t1qTBGOZssOdlVc3S13juwHTV7DjYETcZGhpLLQ0rPeDOYk3Iw4efq87RXAssd5R
+8/sPmGxxynZUu31zCdysXiF3Zj5+hJM9g/ghnyoSJrBwWzIzXz3wVErLTtmIXkk7
+XPQL1GydvcUisGYi6c3qu6/SYp57C91jXroS2FjBEP4Z+xu+RwcntQQEcSzXK2km
+fNzNpmCPNZUtIVZ4X8krtCe8xCaQ6J7xvw8zizd5A4/Lu8asP5C83E7ykwLnFq1G
+Ewu0Ldy0pHkSrKdwuIdAxo5j77pMxExzemGUARtSx+xldHuB8Z4bJRntxBA8Mqgy
+Nz7ilIgMuUgJGq/2llBiakTNqKx7b3K5QsI/rbZQvWOhCZjd+6GrIzPHzm9Mne78
+xrvoEB9Ng3bZcghCZ8l5OSMHkXQGLX+7Jp01Vnp+S9cJ8ovlRdp12PdCF9N68SZT
+7XYo16EwOHiDafjn6qyvrt3eSBvRiADMd8U4AEnV4QK5kxuT4/FoK6nf6FpNbQLK
+AcmLH1pb3WiMgzGRrjFfLbMCAwEAAQ==
 -----END PUBLIC KEY-----`
 
 function ksort(obj){
@@ -102,35 +97,3 @@ function validateWebhook(jsonObj) {
     // Used in response if statement
     return verification;
 }
-
-///////////////////////////
-
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
-
-
-// export default function handler(req, res) {
-
-
-//   // res.
-//   res.status(200).end(`${uuidv4()}`)
-// }
-
-// export default async (req, res) => {
-//   try {
-//       const client = await clientPromise;
-//       const db = client.db("paddle-webhook");
-
-//       const movies = await db
-//           .collection("movies")
-//           .find({})
-//           .sort({ metacritic: -1 })
-//           .limit(10)
-//           .toArray();
-
-//       // res.json(movies);
-//       res.status(200).end(`${uuidv4()}`)
-//   } catch (e) {
-//       console.error(e);
-//   }
-// }
