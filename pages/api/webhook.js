@@ -1,9 +1,7 @@
 // Node.js & Express implementation
 const crypto = require('crypto');
 const Serialize = require('php-serialize');
-const express = require( 'express' );
 const bodyParser = require("body-parser");
-const app = express();
 import {v4 as uuidv4} from 'uuid';
 import { MongoClient } from 'mongodb';
 
