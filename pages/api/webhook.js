@@ -1,11 +1,10 @@
 // Node.js & Express implementation
 const crypto = require('crypto');
 const Serialize = require('php-serialize');
-const bodyParser = require("body-parser");
 import {v4 as uuidv4} from 'uuid';
 import { MongoClient } from 'mongodb';
 
-
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default async (req, res) => {
 
     if (validateWebhook(req.body)) {
@@ -25,24 +24,6 @@ export default async (req, res) => {
         res.sendStatus(403);
         console.log('WEBHOOK_NOT_VERIFIED')
         }
-
-
-    try {
-        const client = await clientPromise;
-        const db = client.db("paddle-webhook");
-  
-        const movies = await db
-            .collection("movies")
-            .find({})
-            .sort({ metacritic: -1 })
-            .limit(10)
-            .toArray();
-  
-        // res.json(movies);
-        res.status(200).end(`${uuidv4()}`)
-    } catch (e) {
-        console.error(e);
-    }
 }
 
 // Public key from your paddle dashboard
