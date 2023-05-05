@@ -50,12 +50,14 @@ export async function payLink(unitQuantity) {
         method: "POST",
         headers: {
             "Access-Control-Allow-Origin": "*",
-            "RequestMode": "no-cors"
+            "RequestMode": "no-cors",
+            "Content-Type": "application/json"
         },
         body: {
             "vendor_id" : process.env.VENDOR_ID,
             "vendor_auth_code" : process.env.VENDOR_AUTH_CODE,
-            quantity: unitQuantity,
+            "product_id": 49705,
+            "quantity": unitQuantity,
             "recurring_prices": [
                 `USD: ${discountPrice}`
             ]
@@ -65,21 +67,3 @@ export async function payLink(unitQuantity) {
     const res = await fetch('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', myInit);
     return res.json().response.url
   }
-
-  // const res = await fetch('https://sandbox-vendors.paddle.com/api/2.0/product/generate_pay_link', {
-  //   method: "POST",
-  //   headers: {
-  //       "Access-Control-Allow-Origin": "*"
-  //   },
-  //   body: {
-  //       "vendor_id" : '11734',
-  //       "vendor_auth_code" : "ca4ab23e9b04856ca1181e5eb2236d6bf71c93eb25829428af",
-  //       quantity: 15,
-  //       "recurring_prices": [
-  //           `USD: 20.00`
-  //       ]
-  //   }
-  // });
-  // console.log(res.json())
-  
-  
