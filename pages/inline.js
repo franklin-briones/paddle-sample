@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { payLink } from './api/paylink'
 import { PaddleLoader } from '@/components/PaddleLoad'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -12,9 +12,21 @@ export default function Home() {
     var form = document.getElementById('pre-checkout');
     const productId = form.products.value==="1" ? 49368
         : form.products.value==="2" ? 49374 
-        : 49376;
+        : form.products.value==="3" ? 49376
+        : 49705
+    
+        // Volume based pricing
+    const unitquantity = Number(form.units.value)
+
+    function load_checkout (unitquantity) {
+      if (productId === 49705) {
+        return payLink(unitquantity)
+      }
+    }
+
         Paddle.Checkout.open({
             method: 'inline',
+            override: load_checkout(unitquantity),
             product: productId,
             email: form.useremail.value,
             country: form.country.value,
@@ -33,7 +45,7 @@ export default function Home() {
                 console.log(data);
                 window.open("https://www.theonion.com", "_blank"); 
             } ,
-            allowQuantity: false,
+            quantity: load_checkout(unitquantity) ? unitquantity : 1,
             disableLogout: true,
             frameTarget: 'checkout-container', // className of your checkout <div>
             frameInitialHeight: 450, // `450` or above
@@ -53,31 +65,34 @@ export default function Home() {
         <PaddleLoader />
         <Link href="/" className=' text-2xl'>Go back Home</Link>
         <h1 className=' text-xl'>Welcome to my inline checkout web store</h1>
-        <h2 className={styles.h2}>Please reload to see prices update below</h2>
+        <h2 >Please reload to see prices update below</h2>
         <br />
 
 
         <p>Grab your copy of FDB Software download 1 for just <span className="paddle-gross" data-product="49368">$0</span>!</p>
         <p>Grab your copy of FDB Software download 2 for just <span className="paddle-gross" data-product="49374">$0</span>!</p>
         <p>Grab your copy of FDB Software download 3 for just <span className="paddle-gross" data-product="49376">$0</span>!</p>
+        <p>Grab some FDB Software download 4 for just <span className="paddle-gross" data-product="49705">$0</span> each!</p>
         <br />
 
         <div className='thankyou-container'></div>
-        <form id="pre-checkout">
+        <form id="pre-checkout" className=' m-8'>
             <select id="products" name="products">
                 <option value="1">Download 1</option>
                 <option value="2">Download 2</option>
                 <option value="3">Download 3</option>
+                <option value="4">Download 4</option>
               </select>
-            <input id="useremail" type="text" placeholder="Email address" />
-            <input id="country" type="text" placeholder="US or GB" />
-            <input id="postalcode" type="text" placeholder="78702" />
+            <input className=' m-8' id="useremail" type="text" placeholder="Email address" />
+            <input className=' m-8' id="country" type="text" placeholder="US or GB" />
+            <input className=' m-8' id="postalcode" type="text" placeholder="78702" />
+            <input className=' m-8'type="number" id="units" placeholder="Quantity"/>
         </form>
         <div id='checkout-container' className='checkout-container'></div>
 
 
-        <button onClick={openCheckout}>Buy My Product</button>
-        <pre height="100px" id='event-data'>This is where event-data will populate when a successful checkout occurs.</pre>
+        <button className=" border-red-600 border-4 m-4 p-4"onClick={openCheckout}>Buy My Product</button>
+        <pre className=" text-left"height="100px" id='event-data'>This is where event-data will populate when a successful checkout occurs.</pre>
       </main>
     </>
   )

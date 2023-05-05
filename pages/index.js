@@ -2,8 +2,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { PaddleLoader } from '@/components/PaddleLoad'
 import { Inter } from 'next/font/google'
-import Image from 'next/image'
-import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
