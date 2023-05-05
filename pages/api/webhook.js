@@ -1,11 +1,9 @@
 // Node.js & Express implementation
 const crypto = require('crypto');
 const Serialize = require('php-serialize');
-const bodyParser = require("body-parser");
-import {v4 as uuidv4} from 'uuid';
 import { MongoClient } from 'mongodb';
 
-
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default async (req, res) => {
 
     if (validateWebhook(req.body)) {
@@ -25,7 +23,6 @@ export default async (req, res) => {
         res.sendStatus(403);
         console.log('WEBHOOK_NOT_VERIFIED')
         }
-
 }
 
 // Public key from your paddle dashboard
