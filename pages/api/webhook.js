@@ -1,7 +1,6 @@
 // Node.js & Express implementation
 const crypto = require('crypto');
 const Serialize = require('php-serialize');
-import {v4 as uuidv4} from 'uuid';
 import { MongoClient } from 'mongodb';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
