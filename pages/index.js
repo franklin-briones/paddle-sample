@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
 
 
-  const openCheckout  = () => { 
-    Paddle.Checkout.open({ product: 49368 }); 
+  const openCheckout = () => {
+    Paddle.Checkout.open({ product: 49368 });
   }
 
   const updateOverlaySubscription = () => {
@@ -19,7 +19,7 @@ export default function Home() {
       // frameTarget: 'checkout-container', // The className of your checkout <div>
       // frameInitialHeight: 416,
       // frameStyle: 'background-color: transparent; border: none;'    // Please ensure the minimum width is kept at or above 312px.
-  })
+    })
   }
 
   const updateInlineSubscription = () => {
@@ -29,8 +29,8 @@ export default function Home() {
       frameTarget: 'checkout-container', // The className of your checkout <div>
       frameInitialHeight: 416,
       frameStyle: 'width:100%; min-width:312px; background-color: transparent; border: none;'    // Please ensure the minimum width is kept at or above 312px.
-  
-  })
+
+    })
   }
 
   return (
@@ -41,20 +41,21 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="max-w-sm mx-auto flex-col space-y-10 text-center ">
+      <main className="">
         <PaddleLoader />
-        
-        <h1 className='text-6xl flex py-14'>Welcome to my web store</h1>
-        
-        <Link href="/overlay" className="p-5 text-3xl text-center text-orange-200 border-4 border-white">See Overlay Checkout</Link>
-        
-        <Link href="/inline" className='p-5 text-3xl flex text-center text-pink-300 border-4 border-white'>See Inline Checkout</Link>
-        
-        <button onClick={updateInlineSubscription} className='p-4 border-2 border-white'>Update Subscription Inline</button>
-        
+
+        <h1 className="flex justify-center p-5 text-gray-200">Welcome to my web store</h1>
+        <div className="grid grid-cols-2 gap-3 place-items-center p-30">
+          <Link href="/overlay" className="flex justify-center text-3xl border border-yellow-300 p-20">See Overlay Checkout</Link>
+          <Link href="/inline" className="flex justify-center text-3xl border border-yellow-300 p-20">See Inline Checkout</Link>
+          <Link href="/overlaypb" className="flex justify-center text-3xl border border-blue-300 p-20">See Overlay Checkout in PB</Link>
+          <Link href="/inlinepb" className="flex justify-center text-3xl border border-blue-300 p-20">See Inline Checkout in PB</Link>
+          <div onClick={updateInlineSubscription} className="flex justify-center text-3xl">Update Subscription Inline</div>
+          <div onClick={updateOverlaySubscription} className="flex justify-center text-3xl">Update Subscription Overlay</div>
+        </div>
         <div className="checkout-container"></div>
-        
-        <button onClick={updateOverlaySubscription} className='p-4 border-2 border-white'>Update Subscription Overlay</button>
+
+
       </main>
     </>
   )
