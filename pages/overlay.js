@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { PaddleLoader } from '@/components/PaddleLoad'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,16 +19,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main className="grid grid-rows-2 gap-3 place-items-center p-30">
         <PaddleLoader />
-        <h1>Welcome to my overlay checkout web store</h1>
-        {/* <a href='#!' className='paddle_button' data-product='49368'>Buy Now!</a> */}
-        <button onClick={()=> {
+        <h1 className="text-4xl pt-10">Welcome to my overlay checkout web store</h1>
+        <a href='#!' className='paddle_button' data-product='49368'>Buy Now using HTML Attributes!</a>
+        <button className="flex justify-center text-3xl border border-yellow-300 p-10" onClick={()=> {
           Paddle.Checkout.open({
-            product: 49368
+            product: 49368,
+            coupon: "10off"
           })
-        }}>Buy My Product</button>
-        {/* <pre>{JSON.stringify(json, null, 2)}</pre> */}
+        }}>Buy now using Checkout.Open() method</button>
       </main>
     </>
   )
