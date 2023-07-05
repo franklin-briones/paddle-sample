@@ -51,7 +51,7 @@ export default function Home() {
             frameInitialHeight: 450, // `450` or above
             frameStyle: 'width:100%; min-width:312px; background-color: transparent; border: none;' // `min-width` must be set to `286px` or above with checkout padding off; `312px` with checkout padding on.
         });
-    }
+    }https://mail.google.com/mail/u/0/#inbox
 
   return (
     <>

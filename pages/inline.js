@@ -68,6 +68,7 @@ export default function Home() {
         document.getElementById('event-data').innerHTML = JSON.stringify(data, null, 2)
         // Order data, downloads, receipts etc... available within 'data' variable
         console.log(data);
+        console.log('calling successCallback')
         // document.getElementById("thankyou-container").innerHTML = `
         //     <h3>Thank you for the purchase</h3>
         //     <p>Your receipt URL is: <a href=${receiptLink}>${receiptLink}</a></p>
