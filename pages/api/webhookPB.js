@@ -2,14 +2,19 @@
 const crypto = require('crypto');
 import { MongoClient } from 'mongodb';
 
+// export default async (req, res) => {
+//     console.log("req object", req.headers["paddle-signature"]
+
+//     )
+// }
+
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default async (req, res) => {
-    console.log("req object", req)
-    console.log("extracting paddle-signature through req.get", req.get(paddle_signature))
-    console.log("req.headers.paddle_signature", req.headers.paddle_signature)
+    const paddleSignature = req.headers["paddle-signature"]
     
+    const secretKey = process.env.PB_WEBHOOK_KEY
 
-    if (validateWebhook(req)) {
+    if (validateWebhook(paddleSignature, secretKey)) {
         console.log('WEBHOOK_VERIFIED');
 
         const data = req.body;
@@ -28,13 +33,9 @@ export default async (req, res) => {
     }
 }
 
-function validateWebhook(req) {
-    const secretKey = process.env.PB_WEBHOOK_KEY
-
+function validateWebhook(paddleSignature, secretKey) {
     let verification;
 
-
-    let paddleSignature = req.headers.paddle_signature
     console.log('Paddle signature in validateWebhook', paddleSignature)
     const parsedData = parseString(paddleSignature);
     const timestamp = parsedData.ts;
