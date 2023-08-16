@@ -1,6 +1,6 @@
 
 
-export default async function payLink(req, res) {
+export async function payLink(req, res) {
   try {
 
     const { inputData } = req.body; 
