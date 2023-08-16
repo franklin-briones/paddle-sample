@@ -1,10 +1,12 @@
 // Node.js & Express implementation
 const crypto = require('crypto');
 import { MongoClient } from 'mongodb';
-import { headers } from 'next/headers'
 
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default async (req, res) => {
+    console.log("req object", req)
+    console.log("extracting paddle-signature through req.get", req.get(paddle_signature))
+    console.log("req.headers.paddle_signature", req.headers.paddle_signature)
     
 
     if (validateWebhook(req)) {
@@ -31,10 +33,8 @@ function validateWebhook(req) {
 
     let verification;
 
-    const headersInstance = headers()
-    console.log("headersInstance", headersInstance)
 
-    let paddleSignature = headersInstance.paddle_signature
+    let paddleSignature = req.headers.paddle_signature
     console.log('Paddle signature in validateWebhook', paddleSignature)
     const parsedData = parseString(paddleSignature);
     const timestamp = parsedData.ts;
