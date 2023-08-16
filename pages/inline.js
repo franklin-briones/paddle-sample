@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { payLink } from './api/paylink'
 import { PaddleLoader } from '@/components/PaddleLoad'
 import { Inter } from 'next/font/google'
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
@@ -51,8 +50,24 @@ export default function Home() {
 
     // Volume based pricing
     const unitquantity = Number(formVals.units.value)
-    function load_checkout(unitquantity) {
+    const load_checkout = async (unitquantity) => {
       if (productId === 49705) {
+
+        try {
+          // Make the request to your API route
+          const response = await fetch('/api/paylink', myInit);
+          const data = await response.json();
+          console.log('API response:', data);
+          // Handle the response and update the UI
+          // ...
+        } catch (error) {
+          console.error('Error:', error);
+          // Handle error and display an error message to the user
+          // ...
+        }
+    
+
+
         return payLink(unitquantity)
       }
     }

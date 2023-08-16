@@ -54,6 +54,7 @@ export default function Home() {
           <Link href="/inlinepb" className="flex justify-center text-3xl border border-blue-300 p-10">See Inline Checkout in PB</Link>
           <div onClick={updateInlineSubscription} className="flex justify-center border border-green-300 text-3xl p-10">Update Subscription Inline</div>
           <div onClick={updateOverlaySubscription} className="flex justify-center border border-green-300 text-3xl p-10">Update Subscription Overlay</div>
+          <Link className="flex justify-center border border-green-300 text-3xl p-10" href="/pay">Pay Here</Link>
         </div>
         <div className="checkout-container"></div>
 
