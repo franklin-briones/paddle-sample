@@ -27,6 +27,8 @@ export default async (req, res) => {
 }
 
 function validateWebhook(req) {
+    const secretKey = process.env.PB_WEBHOOK_KEY
+
     let verification;
 
     const headersInstance = headers()
