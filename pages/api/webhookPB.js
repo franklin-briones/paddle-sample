@@ -11,10 +11,10 @@ import { MongoClient } from 'mongodb';
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default async (req, res) => {
     const paddleSignature = req.headers["paddle-signature"]
-    
+    const requestBody = req.body
     const secretKey = process.env.PB_WEBHOOK_KEY
 
-    if (validateWebhook(paddleSignature, secretKey)) {
+    if (validateWebhook(paddleSignature, secretKey, requestBody)) {
         console.log('WEBHOOK_VERIFIED');
 
         const data = req.body;
@@ -33,7 +33,7 @@ export default async (req, res) => {
     }
 }
 
-function validateWebhook(paddleSignature, secretKey) {
+function validateWebhook(paddleSignature, secretKey, reqBody) {
     let verification;
 
     console.log('Paddle signature in validateWebhook', paddleSignature)
@@ -41,7 +41,7 @@ function validateWebhook(paddleSignature, secretKey) {
     const timestamp = parsedData.ts;
     const signature = parsedData.h1;
 
-    const signedP = buildSignedPayload(timestamp, req.body)
+    const signedP = buildSignedPayload(timestamp, reqBody)
 
     const hmacValue = computeHMAC(secretKey, signedP);
     if (hmacValue === signature) {
