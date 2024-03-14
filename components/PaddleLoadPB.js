@@ -1,23 +1,8 @@
 "use client";
 import Script from "next/script";
 
-// export function PaddleLoaderPB() {
-//   return (
-//     <Script
-//       strategy="beforeInteractive"
-//       src="https://cdn.paddle.com/paddle/v2/paddle.js"
-//       onLoad={() => {
-//         Paddle.Environment.set("sandbox");
-//         Paddle.Setup({
-//           seller: 12277,
-//         });
-        
-//       }}
-//     />
-//   );
-// }
 
-export function PaddleLoaderPB(updateFn) {
+export function PaddleLoaderPB() {
   return (
     <Script
       src="https://cdn.paddle.com/paddle/v2/paddle.js"
@@ -25,9 +10,14 @@ export function PaddleLoaderPB(updateFn) {
         if (process.env.NEXT_PUBLIC_PADDLE_SANDBOX) {
           Paddle.Environment.set("sandbox");
         }
+        
         Paddle.Setup({
-          seller: 12277
-        });
+          token: 'test_63e9b28fe5fa199ee98d51d3e54',
+          eventCallback: function(data) {
+            console.log(data)
+          }
+        })
+        
       }}
     />
   );

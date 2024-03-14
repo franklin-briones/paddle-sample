@@ -2,12 +2,6 @@
 const crypto = require('crypto');
 import { MongoClient } from 'mongodb';
 
-// export default async (req, res) => {
-//     console.log("req object", req.headers["paddle-signature"]
-
-//     )
-// }
-
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default async (req, res) => {
     const paddleSignature = req.headers["paddle-signature"]
@@ -15,7 +9,6 @@ export default async (req, res) => {
     const secretKey = process.env.PB_WEBHOOK_KEY
 
     if (validateWebhook(paddleSignature, secretKey, requestBody)) {
-        console.log('WEBHOOK_VERIFIED');
 
         const data = req.body;
         const client = await MongoClient.connect(process.env.MONGODB_URI);
@@ -25,6 +18,7 @@ export default async (req, res) => {
         console.log(result);
         client.close();
         res.status(200).json({ message: "Data inserted successfully!" });
+        console.log('WEBHOOK_VERIFIED');
     }
 
     else {
@@ -36,7 +30,6 @@ export default async (req, res) => {
 function validateWebhook(paddleSignature, secretKey, reqBody) {
     let verification;
 
-    console.log('Paddle signature in validateWebhook', paddleSignature)
     const parsedData = parseString(paddleSignature);
     const timestamp = parsedData.ts;
     const signature = parsedData.h1;
@@ -44,17 +37,16 @@ function validateWebhook(paddleSignature, secretKey, reqBody) {
     const signedP = buildSignedPayload(timestamp, reqBody)
 
     const hmacValue = computeHMAC(secretKey, signedP);
-    if (hmacValue === signature) {
-        console.log('signature verified')
-        verification = true
-    }
-    else {
-        console.log('signature not verified')
-        verification = false
-    }
 
-    return verification
+    // Using timingSafeEqual for comparison
+    // if (crypto.timingSafeEqual(Buffer.from(hmacValue, 'hex'), Buffer.from(signature, 'hex'))) {
+    //     verification = true
+    // } else {
+    //     verification = false
+    // }
 
+    // return verification
+    return (crypto.timingSafeEqual(Buffer.from(hmacValue, 'hex'), Buffer.from(signature, 'hex')))
 }
 
 

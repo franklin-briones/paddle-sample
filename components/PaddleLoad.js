@@ -13,9 +13,6 @@ export function PaddleLoader(updateFn) {
           completeDetails: true,
           eventCallback: function (data) {
             console.log(data)
-            function u() {
-              updateFn
-            }
           }
         });
       }}

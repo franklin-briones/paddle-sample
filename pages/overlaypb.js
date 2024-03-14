@@ -4,10 +4,6 @@ import { PaddleLoaderPB } from '@/components/PaddleLoadPB';
 export default function Home() {
 
 
-  const openCheckout = () => {
-    Paddle.Checkout.open({ product: 49368 });
-  }
-
   return (
     <>
       <Head>
@@ -25,11 +21,33 @@ export default function Home() {
           data-theme='none'
           data-items='[
             {
-              "priceId": "pri_01h5r49agwnek287f18v33p8q0",
+              "priceId": "pri_01hd6m4j9h7fmxpx3aeaghzqaa",
               "quantity": 1
             }
           ]'
         >Buy now using HTML Attributes!</a>
+        <button className="flex justify-center text-3xl border border-red-300 p-10" onClick={() => {
+          let request = {
+            items: [{
+                quantity: 1,
+                priceId: 'pri_01hms0pm45jehb3m5cgr19wqqp',
+              }
+            ],
+            address: {
+              countryCode: 'KR'
+            }
+          }
+          
+
+          Paddle.PricePreview(request)
+          .then((result) => {
+            console.log(result);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        
+        }}>console log price</button>
         <button className="flex justify-center text-3xl border border-yellow-300 p-10" onClick={() => {
           Paddle.Checkout.open({
             settings: {
@@ -37,7 +55,7 @@ export default function Home() {
             },
             items: [
               {
-                priceId: 'pri_01h5r49agwnek287f18v33p8q0',
+                priceId: 'pri_01hd6m4j9h7fmxpx3aeaghzqaa',
                 quantity: 1
               }
             ]
