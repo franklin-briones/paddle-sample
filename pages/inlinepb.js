@@ -1,57 +1,8 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import { payLink } from './api/paylink'
-import { PaddleLoaderPB } from '@/components/PaddleLoadPB'
-import { Inter } from 'next/font/google'
-const inter = Inter({ subsets: ['latin'] })
+import { PaddleLoaderPB } from '@/components/PaddleLoadPB';
 
 export default function Home() {
 
-    
-    function openCheckout() {
-    var form = document.getElementById('pre-checkout');
-    const productId = form.products.value==="1" ? 49368
-        : form.products.value==="2" ? 49374 
-        : form.products.value==="3" ? 49376
-        : 49705
-    
-        // Volume based pricing
-    const unitquantity = Number(form.units.value)
-
-    function load_checkout (unitquantity) {
-      if (productId === 49705) {
-        return payLink(unitquantity)
-      }
-    }
-
-        Paddle.Checkout.open({
-            method: 'inline',
-            override: load_checkout(unitquantity),
-            product: productId,
-            email: form.useremail.value,
-            country: form.country.value,
-            postcode: form.postalcode.value,
-            successCallback: function checkoutComplete(data) {
-                document.getElementById('event-data').innerHTML=JSON.stringify(data, null, 2)
-                // Order data, downloads, receipts etc... available within 'data' variable
-                console.log(data);
-                // document.getElementById("thankyou-container").innerHTML = `
-                //     <h3>Thank you for the purchase</h3>
-                //     <p>Your receipt URL is: <a href=${receiptLink}>${receiptLink}</a></p>
-                //     <p>Your email used is: ${orderEmail}</p>
-                //     <p>Your order ID is: ${orderId}</p>`
-            },
-            closeCallback: function checkoutClosed(data) {
-                console.log(data);
-                window.open("https://www.theonion.com", "_blank"); 
-            } ,
-            quantity: load_checkout(unitquantity) ? unitquantity : 1,
-            disableLogout: true,
-            frameTarget: 'checkout-container', // className of your checkout <div>
-            frameInitialHeight: 450, // `450` or above
-            frameStyle: 'width:100%; min-width:312px; background-color: transparent; border: none;' // `min-width` must be set to `286px` or above with checkout padding off; `312px` with checkout padding on.
-        });
-    }https://mail.google.com/mail/u/0/#inbox
 
   return (
     <>
@@ -61,38 +12,55 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className=" flex-col text-center">
+      <main className="grid grid-rows-2 gap-3 place-items-center p-30 color bg-slate-300	">
         <PaddleLoaderPB />
-        <Link href="/" className=' text-2xl'>Go back Home</Link>
-        <h1 className=' text-xl'>Welcome to my inline checkout web store</h1>
-        <h2 >Please reload to see prices update below</h2>
-        <br />
+        <h1 className="text-4xl pt-10">Welcome to my inline checkout web store</h1>
+        <div className='grid grid-cols-2 gap-2'>
+          <div className='buttons'>
+            <button className="flex justify-center text-3xl border border-red-300 p-10" onClick={() => {
+              let request = {
+                items: [{
+                  quantity: 1,
+                  priceId: 'pri_01hf7es7z2jez9834v9ehjhaqv',
+                }
+                ],
+                address: {
+                  countryCode: 'KR'
+                }
+              }
+              Paddle.PricePreview(request)
+                .then((result) => {
+                  console.log(result);
+                })
+                .catch((error) => {
+                  console.error(error);
+                });
 
+            }}>console log price</button>
+            <button className="flex justify-center text-3xl border border-yellow-300 p-10" onClick={() => {
+              Paddle.Checkout.open({
+                settings: {
+                  displayMode: "inline",
+                  theme: "dark",
+                  locale: "en",
+                  frameTarget: "checkout-container",
+                  frameInitialHeight: "450",
+                  frameStyle: "width: 100%; min-width: 312px; background-color: transparent; border: none;"
 
-        <p>Grab your copy of FDB Software download 1 for just <span className="paddle-gross" data-product="49368">$0</span>!</p>
-        <p>Grab your copy of FDB Software download 2 for just <span className="paddle-gross" data-product="49374">$0</span>!</p>
-        <p>Grab your copy of FDB Software download 3 for just <span className="paddle-gross" data-product="49376">$0</span>!</p>
-        <p>Grab some FDB Software download 4 for just <span className="paddle-gross" data-product="49705">$0</span> each!</p>
-        <br />
+                },
+                items: [
+                  {
+                    priceId: 'pri_01hf7es7z2jez9834v9ehjhaqv',
+                    quantity: 1
+                  }
+                ]
+              })
+            }}>Buy now using Checkout.Open() method</button>
+          </div>
+          <div id='checkout-container' className='checkout-container'></div>
 
-        <div className='thankyou-container'></div>
-        <form id="pre-checkout" className=' m-8'>
-            <select id="products" name="products">
-                <option value="1">Download 1</option>
-                <option value="2">Download 2</option>
-                <option value="3">Download 3</option>
-                <option value="4">Download 4</option>
-              </select>
-            <input className=' m-8' id="useremail" type="text" placeholder="Email address" />
-            <input className=' m-8' id="country" type="text" placeholder="US or GB" />
-            <input className=' m-8' id="postalcode" type="text" placeholder="78702" />
-            <input className=' m-8'type="number" id="units" placeholder="Quantity"/>
-        </form>
-        <div id='checkout-container' className='checkout-container'></div>
+        </div>
 
-
-        <button className=" border-red-600 border-4 m-4 p-4"onClick={openCheckout}>Buy My Product</button>
-        <pre className=" text-left"height="100px" id='event-data'>This is where event-data will populate when a successful checkout occurs.</pre>
       </main>
     </>
   )

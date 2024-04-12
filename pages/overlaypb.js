@@ -26,6 +26,17 @@ export default function Home() {
             }
           ]'
         >Buy now using HTML Attributes!</a>
+        <a
+          href='#'
+          class='paddle_button'
+          data-theme='none'
+          data-items='[
+            {
+              "priceId": "pri_01hf7es7z2jez9834v9ehjhaqv",
+              "quantity": 1
+            }
+          ]'
+        >Save Card Details for future purchases!</a>
         <button className="flex justify-center text-3xl border border-red-300 p-10" onClick={() => {
           let request = {
             items: [{
