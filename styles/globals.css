@@ -116,3 +116,16 @@ input {
   width: 75%;
   padding: 10px
 }
+
+
+@layer components {
+  .btn {
+    @apply bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300;
+  }
+  .card {
+    @apply bg-white p-4 shadow-md rounded hover:shadow-lg transition-shadow duration-300;
+  }
+  .navbar {
+    @apply bg-gray-800 text-white p-4 fixed w-full z-10;
+  }
+}
