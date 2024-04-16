@@ -17,7 +17,7 @@ export default function Home() {
         <h1 className="text-4xl pt-10">Welcome to my overlay checkout web store</h1>
         <a
           href='#'
-          class='paddle_button'
+          className='paddle_button'
           data-theme='none'
           data-items='[
             {
@@ -28,7 +28,7 @@ export default function Home() {
         >Buy now using HTML Attributes!</a>
         <a
           href='#'
-          class='paddle_button'
+          className='paddle_button'
           data-theme='none'
           data-items='[
             {

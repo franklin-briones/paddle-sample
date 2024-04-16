@@ -15,11 +15,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="grid grid-rows-2 gap-3 place-items-center p-30">
-        <Image 
+        {/* <Image 
         width={1700}
         height={1700}
         src="/background.png"
-        ></Image>
+        ></Image> */}
         <PaddleLoaderPB />
         <h1>Pay here</h1>
       </main>
