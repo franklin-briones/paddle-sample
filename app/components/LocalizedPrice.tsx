@@ -33,13 +33,13 @@ interface LocalizedPriceProps {
     // Initialize Paddle Script
     initializePaddle({
       environment: 'sandbox',
-      token: `${process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN}`, //test_63e9b28fe5fa199ee98d51d3e54
+      token: `${process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN}`,
       eventCallback: (data) => { console.log(data) }
     }).then(
       (paddleInstance: Paddle | undefined) => {
         if (paddleInstance) {
           setPaddle(paddleInstance);
-          console.log('token here', process.env.NEXT_PADDLE_CLIENT_TOKEN)
+        //   console.log('token here', process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN)
         }
       },
     );
@@ -66,7 +66,7 @@ interface LocalizedPriceProps {
 
           paddle?.PricePreview(requestData)
             .then((result) => {
-              console.log(result);
+            //   console.log(result);
               setLocalizedPrice(result)
             })
             .catch((error) => {
