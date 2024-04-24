@@ -5,7 +5,8 @@ interface SubscriptionManagementProps {
     plans: Plan[];
 }
 
-const SubscriptionManagement: React.FC<SubscriptionManagementProps> = ({ currentPlanName, plans }) => {
+const SubscriptionManagement = ({ currentPlanName, plans }: SubscriptionManagementProps) => {
+
     const currentPlanIndex = plans.findIndex(plan => plan.name === currentPlanName);
     const currentPlan = plans[currentPlanIndex];
 
