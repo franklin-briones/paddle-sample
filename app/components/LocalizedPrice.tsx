@@ -65,7 +65,7 @@ interface LocalizedPriceProps {
 
           paddle?.PricePreview(requestData)
             .then((result) => {
-            //   console.log(result);
+              console.log(result);
               setLocalizedPrice(result)
             })
             .catch((error) => {
