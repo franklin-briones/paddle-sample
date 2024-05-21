@@ -24,7 +24,6 @@ const PricingCard = () => {
       (paddleInstance: Paddle | undefined) => {
         if (paddleInstance) {
           setPaddle(paddleInstance);
-          console.log('token here', process.env.NEXT_PADDLE_CLIENT_TOKEN)
         }
       },
     );

@@ -39,7 +39,6 @@ interface LocalizedPriceProps {
       (paddleInstance: Paddle | undefined) => {
         if (paddleInstance) {
           setPaddle(paddleInstance);
-        //   console.log('token here', process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN)
         }
       },
     );
@@ -73,11 +72,6 @@ interface LocalizedPriceProps {
               console.error(error);
             });
 
-
-        // Make the API call to fetch the localized price
-        // const response = await fetch(`/api/getPricePreview?userIP=${encodedIP}`);
-        // const dataPrice = await response.json();
-        // setLocalizedPrice(dataPrice.localizedPrice);
       } catch (error) {
         console.log("error received from getLocalizedPrice API", error)
         console.error("Error fetching localized price:", error);
