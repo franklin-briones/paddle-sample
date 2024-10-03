@@ -37,6 +37,7 @@ const PricingCard = () => {
       items: [{ priceId: priceid, quantity: 1 }],
       // If inline pass inline checkout settings
       ...(isInline && {settings: {
+            variant: "one-page",
             showAddDiscounts: false,
             theme: 'dark',
             displayMode: 'inline',
