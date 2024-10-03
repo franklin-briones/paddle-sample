@@ -9,6 +9,7 @@ const PricingCard = () => {
 
   const [isAnnual, setIsAnnual] = useState(false);
   const [isInline, setIsInline] = useState(false);
+  const [isOnePage, setisOnePage] = useState(false);
 
   // Create a local state to store Paddle instance
   const [paddle, setPaddle] = useState<Paddle>();
@@ -37,7 +38,7 @@ const PricingCard = () => {
       items: [{ priceId: priceid, quantity: 1 }],
       // If inline pass inline checkout settings
       ...(isInline && {settings: {
-            // variant: "one-page",
+            variant: isOnePage ? "one-page" : "multi-page",
             showAddDiscounts: false,
             theme: 'dark',
             displayMode: 'inline',
@@ -59,6 +60,7 @@ const PricingCard = () => {
       <div className="flex justify-center space-x-4 mb-4"> {/*Inline or Overlay checkout option */}
         <button onClick={() => setIsInline(true)} className={`px-4 py-2 ${isInline ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Inline</button>
         <button onClick={() => setIsInline(false)} className={`px-4 py-2 ${!isInline ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Overlay</button>
+        <button onClick={() => setisOnePage(false)} className={`px-4 py-2 ${!isOnePage ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>One Page Inline</button>
       </div>
       <div className="grid grid-cols-3 gap-4 text-black"> {/* Pricing cards */}
         {pricingData.map(plan => (
