@@ -60,7 +60,9 @@ const PricingCard = () => {
       <div className="flex justify-center space-x-4 mb-4"> {/*Inline or Overlay checkout option */}
         <button onClick={() => setIsInline(true)} className={`px-4 py-2 ${isInline ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Inline</button>
         <button onClick={() => setIsInline(false)} className={`px-4 py-2 ${!isInline ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>Overlay</button>
-        <button onClick={() => setisOnePage(false)} className={`px-4 py-2 ${!isOnePage ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>One Page Inline</button>
+      </div>
+      <div className="flex justify-center space-x-4 mb-4">
+        <button onClick={() => setisOnePage(true)} className={`px-4 py-2 ${isOnePage && isInline ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>One Page Inline</button>
       </div>
       <div className="grid grid-cols-3 gap-4 text-black"> {/* Pricing cards */}
         {pricingData.map(plan => (
