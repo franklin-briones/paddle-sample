@@ -32,7 +32,7 @@ interface LocalizedPriceProps {
   useEffect(() => {
     // Initialize Paddle Script
     initializePaddle({
-      environment: 'sandbox',
+      environment: "sandbox",
       token: `${process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN}`,
       eventCallback: (data) => { console.log(data) }
     }).then(
